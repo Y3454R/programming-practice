@@ -32,8 +32,9 @@ class LinkedList:
         return cnt
 
     def insert_at_pos(self, pos, data):
-        if pos > self.get_length():
-            return "out of range."
+        if pos > self.get_length() or pos < 0:
+            print("out of range!")
+            return
         elif pos == self.get_length():
             self.insert_at_last(data)
             return
@@ -55,8 +56,9 @@ class LinkedList:
         prev.next = node
 
     def delete_at(self, pos):
-        if self.get_length() <= pos:
-            return "out of range."
+        if self.get_length() <= pos or pos < 0:
+            print("out of range!")
+            return
         if (pos == 0):
             itr = self.head
             if itr.next is None:

@@ -111,6 +111,31 @@ class bst_node:
         else:
             return self.right.find_max()
 
+    def erase(self, val):
+        if val > self.data:
+            if self.right:
+                self.right = self.right.erase(val)
+            else:
+                print("Not found!")
+        elif val < self.data:
+            if self.left:
+                self.left = self.left.erase(val)
+            else:
+                print("Not found!")
+        else:
+            if (self.left is None and self.right is None):
+                return None
+            elif (self.left is None):
+                return self.right
+            elif (self.right is None):
+                return self.left
+
+            min_val = self.right.find_min()
+            self.data = min_val
+            self.right = self.right.erase(min_val)
+        return self
+
+
 if __name__ == '__main__':
 
     number_of_input = int(input("Enter the number of elements: "))
@@ -127,14 +152,21 @@ if __name__ == '__main__':
     print(f"Pre-order: {bst.pre_order_traversal()}")
     print(f"Post-order: {bst.post_order_traversal()}")
 
-    print(f"Minimum element is {bst.find_min()} and maximum element is {bst.find_max()}\nThe sum is {bst.calculate_sum()}")
+    print(
+        f"Minimum element is {bst.find_min()} and maximum element is {bst.find_max()}\nThe sum is {bst.calculate_sum()}")
 
     # print(bst.data)
 
     while (True):
         try:
             to_find = int(input("Search for: "))
-            print(bst.bst_search(to_find))
+            found = bst.bst_search(to_find)
+            print(found)
+            if found == True:
+                str_input = str(input(f"to delete {to_find}, enter \"y\": "))
+                if str_input == "y":
+                    bst.erase(to_find)
+                print(f"In-order: {bst.in_order_traversal()}")
         except ValueError:
             print("invalid input!")
             break

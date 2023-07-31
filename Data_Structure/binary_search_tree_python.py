@@ -40,6 +40,25 @@ class bst_node:
 
         return elements
 
+    def bst_search(self, search_value):
+
+        if self.data == search_value:
+            return True
+
+        if search_value < self.data:
+            if self.left:
+                return self.left.bst_search(search_value)
+            else:
+                return False
+
+        if search_value > self.data:
+            if self.right:
+                return self.right.bst_search(search_value)
+            else:
+                return False
+
+        return False
+
 if __name__ == '__main__':
 
     number_of_input = int(input("Enter the number of elements: "))
@@ -50,4 +69,13 @@ if __name__ == '__main__':
     for inp in input_list:
         bst.add_child(inp)
 
-    print(bst.in_order_traversal())
+    print(f"Sorted tree: {bst.in_order_traversal()}")
+    # print(bst.data)
+
+    while(1):
+        try:
+            to_find = int(input("Search for: "))
+            print(bst.bst_search(to_find))
+        except ValueError:
+            print("invalid input!")
+            break

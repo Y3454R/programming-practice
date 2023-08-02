@@ -8,48 +8,50 @@ class bt_node:
         if self is None:
             self = bt_node(data)
             return
+
         if self.data is None:
             self.data = data
             return
+
         q = []
         q.append(self)
+
         while q:
-            tmp = q[0]
-            q.pop(0)
+            tmp_node = q.pop(0)
 
-            if tmp.left:
-                q.append(tmp.left)
+            if tmp_node.left:
+                q.append(tmp_node.left)
             else:
-                tmp.left = bt_node(data)
-                # break
+                tmp_node.left = bt_node(data)
                 return
 
-            if tmp.right:
-                q.append(tmp.right)
+            if tmp_node.right:
+                q.append(tmp_node.right)
             else:
-                tmp.right = bt_node(data)
-                # break
+                tmp_node.right = bt_node(data)
                 return
 
-    def in_order(self):
+    def bfs(self):
         elements = []
-        if self.left:
-            elements += self.left.in_order()
-        elements.append(self.data)
-        if self.right:
-            elements += self.right.in_order()
-        return elements
+        q = []
+        q.append(self)
 
-    # def bfs(self):
-    #     elements = []
-    #     q = []
-    #     vstd = []
-    #     for
+        while q:
+            tmp_node = q.pop(0)
+            elements.append(tmp_node.data)
+
+            if tmp_node.left:
+                q.append(tmp_node.left)
+
+            if tmp_node.right:
+                q.append(tmp_node.right)
+
+        return elements
 
 
 if __name__ == "__main__":
-    input_list = [15, 7, 3, 1, 2]
+    input_list = [15, 7, 3, 1, 2, 4, None, 5]
     bt = bt_node()
     for inp in input_list:
         bt.add_child(inp)
-    print(bt.in_order())
+    print(bt.bfs())

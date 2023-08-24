@@ -21,7 +21,7 @@ class min_heap:
         return self.storage[self.get_parent_index(index)]
 
     def has_left(self, index):
-        if self.get_left_index(index) > self.size:
+        if self.get_left_index(index) < self.size:
             return True
         return False
 
@@ -32,7 +32,7 @@ class min_heap:
         return self.storage[self.get_left_index(index)]
 
     def has_r8(self, index):
-        if self.get_r8_index(index) > self.size:
+        if self.get_r8_index(index) < self.size:
             return True
         return False
 
@@ -62,6 +62,33 @@ class min_heap:
             self.swap(index, self.get_parent_index(index))
             self.heapify_up(self.get_parent_index(index))
 
+    def poll(self):
+        if self.size == 0:
+            raise Exception("Heap is empty.")
+        val = self.storage[0]
+        self.swap(0, self.size - 1)
+        self.size -= 1
+        self.heapify_down(0)
+        return val
+
+    def heapify_down(self, index):
+
+        if self.has_left(index):
+            left_index = self.get_left_index(index)
+            smaller_child_index = left_index
+
+            if self.has_r8(index):
+                r8_index = self.get_r8_index(index)
+                if self.get_r8_child(index) < self.storage[smaller_child_index]:
+                    smaller_child_index = r8_index
+
+            if self.storage[index] > self.storage[smaller_child_index]:
+                self.swap(index, smaller_child_index)
+                index = smaller_child_index
+                self.heapify_down(index)
+            else:
+                return
+
 
 if __name__ == '__main__':
     myHeap = min_heap(7)
@@ -70,4 +97,10 @@ if __name__ == '__main__':
     myHeap.insert(10)
     myHeap.print_heap()
     myHeap.insert(0)
+    myHeap.print_heap()
+    myHeap.poll()
+    myHeap.print_heap()
+    myHeap.insert(30)
+    myHeap.print_heap()
+    print(myHeap.poll())
     myHeap.print_heap()

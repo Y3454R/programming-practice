@@ -1,9 +1,7 @@
 # kadane's algorithm
-a = list(map(int, input().split()))
-n = len(a)
-mx = a[0]
-sum = a[0]
-for i in range(1, n):
-    sum = max(a[i] + sum, a[i])
+nums = list(map(int, input().split()))
+sum = mx = 0
+for num in nums:
+    sum = max(num + sum, num)
     mx = max(sum, mx)
 print(mx)

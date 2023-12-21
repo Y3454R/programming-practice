@@ -8,7 +8,7 @@ class LinkedList:
         self.head = None
 
     def insert_at_first(self, data):
-        node = Node(data, self.head)
+        node = Node(data, self.head) #self.head ki hobe ekhane?
         self.head = node
 
     def insert_at_last(self, data):
